@@ -1,0 +1,27 @@
+﻿@model ASP.NETCore_Lab_07.Models.LoaiSP
+
+@{
+    ViewData["Title"] = "Xóa loại sản phẩm";
+}
+
+<div class="container mt-4">
+    <h3 class="text-danger">Bạn có chắc chắn muốn xóa loại sản phẩm này?</h3>
+    <p>Thao tác này sẽ không thể hoàn tác.</p>
+    <hr />
+
+    <div class="card col-md-6 mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Thông tin loại sản phẩm</h5>
+            <p class="card-text">
+                <strong>Mã loại:</strong> @Model.MaLoai <br />
+                <strong>Tên loại:</strong> @Model.TenLoai
+            </p>
+        </div>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="MaLoai" />
+        <button type="submit" class="btn btn-danger">Xác nhận Xóa</button>
+        <a asp-action="Index" class="btn btn-secondary ml-2">Quay lại</a>
+    </form>
+</div>

@@ -1,0 +1,45 @@
+﻿@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white text-center">
+                    <h4 class="mb-0">Đăng Ký Tài Khoản</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-controller="Account" asp-action="Register" method="post">
+
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold">Email</label>
+                            <input type="email" name="email" class="form-control" required placeholder="Nhập email..." />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label class="font-weight-bold">Mật khẩu</label>
+                            <input type="password" name="password" class="form-control" required placeholder="Nhập mật khẩu..." />
+                        </div>
+
+                        <!-- Dropdown chọn Role theo yêu cầu đề bài -->
+                        <div class="form-group mb-4">
+                            <label class="font-weight-bold">Loại tài khoản (Role)</label>
+                            <select name="role" class="form-control" required>
+                                <option value="Admin">Admin (Toàn quyền)</option>
+                                <option value="Staff">Staff (Chỉ xem sản phẩm)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100 font-weight-bold">
+                            Đăng ký
+                        </button>
+                    </form>
+                </div>
+                <div class="card-footer text-center bg-light">
+                    Đã có tài khoản? <a asp-action="Login" class="text-success font-weight-bold">Đăng nhập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model ASP.NETCore_Lab_07.Models.LoaiSP
+
+@{
+    ViewData["Title"] = "Sửa loại sản phẩm";
+}
+
+<div class="container mt-4">
+    <h3>Cập nhật Loại sản phẩm</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <!-- Trường ẩn lưu lại ID để map dữ liệu lúc post -->
+                <input type="hidden" asp-for="MaLoai" />
+
+                <div class="form-group mb-3">
+                    <label asp-for="TenLoai" class="control-label font-weight-bold">Tên loại sản phẩm</label>
+                    <input asp-for="TenLoai" class="form-control" />
+                    <span asp-validation-for="TenLoai" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    <a asp-action="Index" class="btn btn-secondary ml-2">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,54 @@
+﻿@model ASP.NETCore_Lab_07.Models.SanPham
+
+@{
+    ViewData["Title"] = "Xóa Sản Phẩm";
+}
+
+<div class="container mt-4">
+    <div class="alert alert-danger shadow-sm">
+        <h4><i class="fas fa-exclamation-triangle"></i> Cảnh báo!</h4>
+        <p class="mb-0">Bạn có chắc chắn muốn xóa sản phẩm này không? Thao tác này sẽ xóa luôn hình ảnh lưu trên hệ thống và không thể hoàn tác.</p>
+    </div>
+
+    <div class="card shadow-sm col-md-8 p-0 mb-4">
+        <div class="card-header bg-dark text-white">
+            <h5 class="mb-0">Thông tin sản phẩm cần xóa</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    @if (!string.IsNullOrEmpty(Model.Anh))
+                    {
+                        <img src="~/images/@Model.Anh" alt="@Model.TenSP" class="img-fluid img-thumbnail" />
+                    }
+                    else
+                    {
+                        <div class="p-4 border bg-light text-muted">Chưa có ảnh</div>
+                    }
+                </div>
+                <div class="col-md-8">
+                    <dl class="row">
+                        <dt class="col-sm-4">Mã Sản Phẩm:</dt>
+                        <dd class="col-sm-8">@Model.MaSP</dd>
+
+                        <dt class="col-sm-4">Tên Sản Phẩm:</dt>
+                        <dd class="col-sm-8 font-weight-bold">@Model.TenSP</dd>
+
+                        <dt class="col-sm-4">Đơn Giá:</dt>
+                        <dd class="col-sm-8 text-danger font-weight-bold">@Model.DonGia.ToString("N0") VNĐ</dd>
+
+                        <dt class="col-sm-4">Loại Sản Phẩm:</dt>
+                        <dd class="col-sm-8">@Model.LoaiSP.TenLoai</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-white">
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="MaSP" />
+                <button type="submit" class="btn btn-danger font-weight-bold">Xác nhận Xóa</button>
+                <a asp-action="Index" class="btn btn-secondary ml-2">Quay lại danh sách</a>
+            </form>
+        </div>
+    </div>
+</div>

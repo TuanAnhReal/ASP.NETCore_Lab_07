@@ -1,0 +1,35 @@
+﻿@model IEnumerable<ASP.NETCore_Lab_07.Models.LoaiSP>
+
+@{
+    ViewData["Title"] = "Quản lý Loại sản phẩm";
+}
+
+<div class="container mt-4">
+    <h2>Danh sách Loại sản phẩm</h2>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Thêm mới loại sản phẩm</a>
+    </p>
+
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Mã Loại</th>
+                <th>Tên Loại Sản Phẩm</th>
+                <th class="text-center">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.MaLoai</td>
+                    <td>@item.TenLoai</td>
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.MaLoai" class="btn btn-sm btn-warning">Sửa</a>
+                        <a asp-action="Delete" asp-route-id="@item.MaLoai" class="btn btn-sm btn-danger">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
