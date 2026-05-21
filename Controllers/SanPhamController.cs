@@ -26,7 +26,7 @@ namespace ASP.NETCore_Lab_07.Controllers
 
         public async Task<IActionResult> Index(int page = 1)
         {
-            int pageSize = 5; // Số sản phẩm trên 1 trang
+            int pageSize = 4; // Số sản phẩm trên 1 trang
             var applicationDbContext = _context.SanPhams.Include(p => p.LoaiSP);
 
             var totalProducts = await applicationDbContext.CountAsync();

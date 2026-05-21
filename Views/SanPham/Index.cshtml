@@ -5,72 +5,78 @@
 }
 
 <div class="container mt-4">
-    <h2 class="mb-3">Danh sách Sản phẩm</h2>
+    <h2 class="mb-4 text-center">Danh sách Sản phẩm</h2>
 
     <!-- Chỉ Admin mới thấy nút Thêm mới -->
     @if (User.IsInRole("Admin"))
     {
-        <p>
-            <a asp-action="Create" class="btn btn-primary font-weight-bold">+ Thêm mới sản phẩm</a>
-        </p>
+        <div class="mb-4 text-right">
+            <a asp-action="Create" class="btn btn-primary font-weight-bold shadow-sm">
+                <i class="fas fa-plus"></i> + Thêm mới sản phẩm
+            </a>
+        </div>
     }
 
-    <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
-            <thead class="thead-dark">
-                <tr class="text-center">
-                    <th>Hình ảnh</th>
-                    <th>Tên sản phẩm</th>
-                    <th>Đơn giá</th>
-                    <th>Loại sản phẩm</th>
+    <!-- Danh sách thẻ sản phẩm -->
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <!-- Chỉnh col-lg-3 để hiển thị 4 cột trên màn hình lớn, col-md-4 (3 cột), col-sm-6 (2 cột) -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <!-- Hình ảnh sản phẩm -->
+                    @if (!string.IsNullOrEmpty(item.Anh))
+                    {
+                        <img src="~/images/@item.Anh" class="card-img-top" alt="@item.TenSP" style="height: 200px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center text-muted" style="height: 200px;">
+                            <span>Chưa có ảnh</span>
+                        </div>
+                    }
+
+                    <!-- Thông tin sản phẩm -->
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate" title="@item.TenSP">@item.TenSP</h5>
+                        <p class="card-text text-danger font-weight-bold mb-1">
+                            @item.DonGia.ToString("N0") VNĐ
+                        </p>
+                        <p class="card-text text-muted small mb-3">
+                            <i class="fas fa-tag"></i> Loại: @item.LoaiSP.TenLoai
+                        </p>
+
+                        <!-- Căn layout đẩy các phần tử khác lên trên, giữ cho footer luôn ở dưới cùng -->
+                        <div class="mt-auto"></div>
+                    </div>
+
+                    <!-- Nút chức năng (Chỉ Admin mới thấy) -->
                     @if (User.IsInRole("Admin"))
                     {
-                        <th>Hành động</th>
+                        <div class="card-footer bg-white border-top-0 d-flex justify-content-between p-3">
+                            <a asp-action="Edit" asp-route-id="@item.MaSP" class="btn btn-outline-warning btn-sm" style="width: 48%;">Sửa</a>
+                            <a asp-action="Delete" asp-route-id="@item.MaSP" class="btn btn-outline-danger btn-sm" style="width: 48%;">Xóa</a>
+                        </div>
                     }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="text-center">
-                            @if (!string.IsNullOrEmpty(item.Anh))
-                            {
-                                <img src="~/images/@item.Anh" alt="@item.TenSP" style="width: 80px; height: 80px; object-fit: cover;" class="img-thumbnail" />
-                            }
-                            else
-                            {
-                                <span class="text-muted">Chưa có ảnh</span>
-                            }
-                        </td>
-                        <td class="align-middle">@item.TenSP</td>
-                        <td class="align-middle text-right">@item.DonGia.ToString("N0") VNĐ</td>
-                        <td class="align-middle">@item.LoaiSP.TenLoai</td>
-
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <td class="align-middle text-center">
-                                <a asp-action="Edit" asp-route-id="@item.MaSP" class="btn btn-sm btn-warning">Sửa</a>
-                                <a asp-action="Delete" asp-route-id="@item.MaSP" class="btn btn-sm btn-danger">Xóa</a>
-                            </td>
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
+                </div>
+            </div>
+        }
     </div>
 
     <!-- Nút Phân trang -->
-    <div class="d-flex justify-content-center mt-3">
-        <nav>
-            <ul class="pagination">
-                @for (int i = 1; i <= ViewBag.TotalPages; i++)
-                {
-                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
-                        <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
-                    </li>
-                }
-            </ul>
-        </nav>
-    </div>
+    @if (ViewBag.TotalPages > 1)
+    {
+        <div class="d-flex justify-content-center mt-4">
+            <nav aria-label="Page navigation">
+                <ul class="pagination shadow-sm">
+                    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                    {
+                        <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                            <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    }
 </div>

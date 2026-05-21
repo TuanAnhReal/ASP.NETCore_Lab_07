@@ -1,0 +1,60 @@
+﻿@model Microsoft.AspNetCore.Identity.IdentityUser
+
+@{
+    ViewData["Title"] = "Thông tin tài khoản";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0"><i class="fas fa-user-circle"></i> Hồ sơ cá nhân</h4>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row mb-4">
+                        <div class="col-md-3 text-center mb-3 mb-md-0">
+                            <!-- Ảnh avatar mặc định -->
+                            <img src="https://ui-avatars.com/api/?name=@Model.Email&background=random&size=128"
+                                 class="rounded-circle img-thumbnail" alt="Avatar">
+                        </div>
+                        <div class="col-md-9">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4 text-muted">Mã tài khoản (ID):</dt>
+                                <dd class="col-sm-8 font-weight-bold">@Model.Id</dd>
+
+                                <dt class="col-sm-4 text-muted">Tên đăng nhập:</dt>
+                                <dd class="col-sm-8">@Model.UserName</dd>
+
+                                <dt class="col-sm-4 text-muted">Email:</dt>
+                                <dd class="col-sm-8">@Model.Email</dd>
+
+                                <dt class="col-sm-4 text-muted">Vai trò (Role):</dt>
+                                <dd class="col-sm-8">
+                                    @if (ViewBag.Roles != null && ViewBag.Roles.Count > 0)
+                                    {
+                                        foreach (var role in ViewBag.Roles)
+                                        {
+                                            <span class="badge badge-success px-2 py-1">@role</span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-secondary">Người dùng thường</span>
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+
+                    <hr />
+                    <div class="text-center">
+                        <a asp-controller="SanPham" asp-action="Index" class="btn btn-outline-primary">
+                            Về trang Sản phẩm
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
